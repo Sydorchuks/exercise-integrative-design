@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WELCOME!!! CLICK HERE!!! AMAZING SITE!!!</title>
+<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Lobster&display=swap" rel="stylesheet">
+<style>
+  /* ❌ RULE BROKEN: No consistent background — flashing/cycling colors */
+  @keyframes bgFlash {
+    0%   { background-color: #ff0000; }
+    10%  { background-color: #ff6600; }
+    20%  { background-color: #ffff00; }
+    30%  { background-color: #00ff00; }
+    40%  { background-color: #00ffff; }
+    50%  { background-color: #0000ff; }
+    60%  { background-color: #ff00ff; }
+    70%  { background-color: #ff0099; }
+    80%  { background-color: #99ff00; }
+    90%  { background-color: #00ff99; }
+    100% { background-color: #ff0000; }
+  }
+
+  /* ❌ RULE BROKEN: Text flashing/blinking */
+  @keyframes textBlink {
+    0%, 49% { opacity: 1; color: #ff0; }
+    50%, 100% { opacity: 0; color: #f0f; }
+  }
+
+  /* ❌ RULE BROKEN: Spinning, distracting decorations everywhere */
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-30px); }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-15px); }
+    75% { transform: translateX(15px); }
+  }
+
+  @keyframes zoom {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+  }
+
+  @keyframes marqueeAnim {
+    from { transform: translateX(100%); }
+    to { transform: translateX(-100%); }
+  }
+
+  /* ❌ RULE BROKEN: Body uses rapid flashing background */
+  body {
+    margin: 0;
+    padding: 10px;
+    animation: bgFlash 0.4s infinite; /* Flashes every 0.4s — seizure risk */
+    font-family: 'Comic Neue', cursive; /* ❌ Inconsistent, childish font */
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><text y="28" font-size="28">💥</text></svg>'), auto;
+    /* ❌ Custom cursor that is distracting and unpredictable */
+  }
+
+  /* ❌ RULE BROKEN: Autoplay audio tag will be added via JS */
+
+  .chaos-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ❌ RULE BROKEN: Header in Comic Sans-style, red on yellow, ALL CAPS, too big */
+  header {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect width='60' height='60' fill='%23ff0'/%3E%3Crect x='0' y='0' width='30' height='30' fill='%23f0f'/%3E%3Crect x='30' y='30' width='30' height='30' fill='%23f0f'/%3E%3C/svg%3E");
+    /* ❌ High-contrast checkerboard pattern — overwhelming visual noise */
+    padding: 20px;
+    text-align: center;
+    border: 10px dashed red; /* ❌ Dashed borders everywhere */
+  }
+
+  h1 {
+    font-family: 'Lobster', cursive; /* ❌ Decorative font for body content */
+    font-size: 72px; /* ❌ Enormous, inconsistent sizing */
+    color: red;
+    text-shadow: 3px 3px 0 yellow, 6px 6px 0 blue, 9px 9px 0 green; /* ❌ Rainbow shadows */
+    animation: textBlink 0.3s infinite, shake 0.5s infinite; /* ❌ BLINKING + SHAKING simultaneously */
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: -2px; /* ❌ Negative letter spacing — hard to read */
+  }
+
+  /* ❌ RULE BROKEN: Marquee (moving text) — unpredictable, disorienting */
+  .marquee-container {
+    background: black;
+    overflow: hidden;
+    padding: 8px 0;
+    border-top: 5px solid lime;
+    border-bottom: 5px solid lime;
+  }
+  .marquee-text {
+    display: inline-block;
+    white-space: nowrap;
+    color: lime;
+    font-size: 24px;
+    font-weight: bold;
+    animation: marqueeAnim 3s linear infinite; /* ❌ Constant moving text */
+  }
+
+  /* ❌ RULE BROKEN: Navigation with NO clear labels, random colors per item */
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 10px;
+    background: #333;
+    justify-content: center;
+  }
+  nav a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 0; /* ❌ Random inconsistent styling */
+    border: 3px solid;
+  }
+  nav a:nth-child(1) { background: #ff0000; color: #ff00ff; border-color: #00ff00; } /* ❌ Clashing colors */
+  nav a:nth-child(2) { background: #00ff00; color: #0000ff; border-color: #ff0000; }
+  nav a:nth-child(3) { background: #0000ff; color: #ff0000; border-color: #ffff00; }
+  nav a:nth-child(4) { background: #ffff00; color: #00ffff; border-color: #ff00ff; }
+  nav a:nth-child(5) { background: #ff00ff; color: #00ff00; border-color: #0000ff; }
+  nav a:hover { background: black; color: white; transform: rotate(45deg); }
+  /* ❌ HOVER causes rotation — completely unexpected, disorienting */
+
+  /* ❌ RULE BROKEN: Main content area — mixed fonts, sizes, alignments */
+  main {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 3fr 1fr 2fr; /* ❌ Unbalanced chaotic layout */
+    gap: 15px;
+  }
+
+  .content-block {
+    background: rgba(255,255,255,0.1);
+    border: 8px solid;
+    padding: 15px;
+    position: relative;
+  }
+
+  .content-block:nth-child(1) {
+    border-color: #ff6600;
+    border-style: dotted double solid dashed; /* ❌ Different border styles per side */
+    transform: rotate(-3deg); /* ❌ Rotated content blocks */
+  }
+
+  .content-block:nth-child(2) {
+    border-color: lime;
+    border-style: double;
+    transform: rotate(5deg) skewX(5deg); /* ❌ Skewed layout */
+    animation: zoom 1s infinite; /* ❌ Pulsing/zooming content area */
+    grid-row: span 2;
+  }
+
+  .content-block:nth-child(3) {
+    border-color: #ff00ff;
+    transform: rotate(-1deg);
+    animation: bounce 0.8s infinite; /* ❌ Bouncing content block */
+  }
+
+  /* ❌ RULE BROKEN: Completely inconsistent font sizes */
+  .block-title {
+    font-size: 48px; /* way too big for a sub-heading */
+    color: #ff0;
+    font-family: 'Lobster', cursive;
+    margin: 0 0 10px;
+    animation: textBlink 0.5s infinite;
+  }
+
+  p.body-text {
+    font-size: 8px; /* ❌ WAY too small — unreadable */
+    line-height: 0.9; /* ❌ Line height less than 1 — lines overlap */
+    color: #333; /* ❌ Dark grey on dark animated background — poor contrast */
+    font-family: serif; /* ❌ Sudden font switch from display font */
+    letter-spacing: -1px;
+    text-align: justify; /* ❌ Justified text creates uneven spacing rivers */
+  }
+
+  p.important {
+    font-size: 32px;
+    color: #ff0;
+    background: red;
+    font-family: monospace;
+    text-align: right; /* ❌ Right-aligned paragraph — unexpected */
+    padding: 5px;
+    animation: shake 0.3s infinite;
+  }
+
+  /* ❌ RULE BROKEN: Spinning emoji decorations everywhere */
+  .spinner-emoji {
+    display: inline-block;
+    font-size: 60px;
+    animation: spin 0.5s linear infinite; /* ❌ Rapidly spinning decorations */
+  }
+
+  /* ❌ RULE BROKEN: Popup/modal that appears automatically */
+  .auto-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ff0000;
+    color: #00ff00;
+    padding: 30px;
+    border: 10px dashed yellow;
+    z-index: 9999;
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    animation: zoom 0.5s infinite;
+    box-shadow: 0 0 50px blue;
+    font-family: 'Lobster', cursive;
+    min-width: 400px;
+  }
+
+  /* ❌ RULE BROKEN: No clearly labeled close button */
+  .popup-close {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    background: green;
+    color: yellow;
+    border: 3px solid pink;
+    font-size: 10px; /* ❌ Tiny click target */
+    cursor: pointer;
+    transform: rotate(45deg);
+    padding: 2px 5px;
+    border-radius: 50%;
+  }
+
+  /* ❌ RULE BROKEN: Form with no labels, placeholder-only, random colors */
+  .chaos-form {
+    padding: 20px;
+    background: black;
+    margin: 10px 0;
+    border: 5px solid lime;
+  }
+  .chaos-form input {
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+    background: #333;
+    color: lime; /* ❌ Low contrast, unexpected */
+    border: 2px solid #ff00ff;
+    padding: 5px;
+    font-size: 22px;
+    font-family: 'Lobster', cursive;
+    box-sizing: border-box;
+    /* No label associated! ❌ */
+  }
+  .chaos-form input::placeholder {
+    color: #666; /* ❌ Hard to read placeholder as only guidance */
+  }
+  .chaos-form button {
+    background: #ff0000;
+    color: #ffff00;
+    border: 5px dashed lime;
+    padding: 15px 30px;
+    font-size: 28px;
+    cursor: pointer;
+    animation: bounce 0.6s infinite;
+    font-family: 'Lobster', cursive;
+    margin-top: 10px;
+    /* ❌ No clear affordance, bouncing so hard to click */
+  }
+
+  /* ❌ RULE BROKEN: Image decorations spinning and flashing */
+  .deco-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 10px;
+    background: linear-gradient(45deg, #f00, #0f0, #00f, #f0f, #ff0, #0ff);
+    /* ❌ Rainbow gradient background — extremely overwhelming */
+    background-size: 200% 200%;
+    animation: bgFlash 1s linear infinite;
+  }
+
+  .emoji-decoration {
+    font-size: 50px;
+    animation: spin 0.3s linear infinite; /* ❌ RAPID spin */
+    display: inline-block;
+  }
+
+  /* ❌ RULE BROKEN: Sidebar with overlapping text and random elements */
+  .chaos-sidebar {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 180px;
+    background: #ff00ff;
+    color: #00ff00;
+    padding: 10px;
+    font-size: 28px;
+    text-align: center;
+    border: 5px dashed blue;
+    animation: shake 0.4s infinite;
+    /* ❌ Fixed sidebar that shakes constantly, overlaps content */
+    z-index: 100;
+    font-family: 'Lobster', cursive;
+  }
+
+  /* ❌ RULE BROKEN: Footer with invisible text */
+  footer {
+    background: #111;
+    color: #000; /* ❌ Black text on near-black background = invisible */
+    padding: 20px;
+    font-size: 6px; /* ❌ Microscopic text */
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  /* ❌ RULE BROKEN: Links look like regular text */
+  .fake-link {
+    color: inherit;
+    text-decoration: none;
+    font-size: inherit;
+    /* ❌ Links indistinguishable from body text */
+  }
+
+  /* ❌ RULE BROKEN: Overlay of random spinning shapes */
+  .bg-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .float-shape {
+    position: absolute;
+    opacity: 0.4;
+    animation: spin 1s linear infinite, bounce 2s ease-in-out infinite;
+    font-size: 80px;
+    pointer-events: none;
+  }
+
+  .rules-list {
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 20px;
+    margin: 20px 0;
+    border: 3px dashed red;
+    position: relative;
+    z-index: 10;
+    grid-column: 1 / -1;
+  }
+
+  .rules-list h2 {
+    color: lime;
+    font-family: 'Lobster', cursive;
+    font-size: 36px;
+    animation: textBlink 0.8s infinite;
+  }
+
+  .rules-list li {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #ffaaaa;
+    font-family: monospace;
+  }
+
+  .rules-list .rule-tag {
+    color: #ff4444;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .rules-list .note {
+    color: #88ff88;
+    font-style: italic;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ❌ Floating distracting shapes in the background -->
+<div class="bg-overlay" aria-hidden="true">
+  <span class="float-shape" style="top:10%;left:5%">⚡</span>
+  <span class="float-shape" style="top:40%;left:20%;animation-delay:-0.5s">🌀</span>
+  <span class="float-shape" style="top:70%;left:80%;animation-delay:-1s">💥</span>
+  <span class="float-shape" style="top:20%;left:70%;animation-delay:-0.2s">🔥</span>
+  <span class="float-shape" style="top:60%;left:45%;animation-delay:-0.8s">⭐</span>
+</div>
+
+<!-- ❌ Auto popup with no user trigger -->
+<div class="auto-popup" id="popup">
+  <button class="popup-close" onclick="document.getElementById('popup').style.display='none'" title="x">×</button>
+  🚨 YOU WON!!! CLICK NOW!!! 🚨<br>
+  <span style="font-size:16px">Congratulations!! Your computer has a virus click here to fix it NOW</span>
+</div>
+
+<!-- ❌ Shaking fixed sidebar overlapping content -->
+<div class="chaos-sidebar" role="complementary">
+  🛒 BUY<br>NOW!!!<br>💸💸💸<br>SALE!<br>99% OFF<br>⬇️⬇️⬇️
+</div>
+
+<div class="chaos-wrapper">
+
+  <!-- ❌ Checkerboard bg header, blinking+shaking h1 -->
+  <header>
+    <h1>WELCOME TO OUR WEBSITE!!!</h1>
+    <p style="font-size:50px;animation:zoom 0.5s infinite;font-family:'Lobster',cursive;color:#00f;margin:0">
+      THE BEST SITE EVER CLICK EVERYTHING!!!
+    </p>
+  </header>
+
+  <!-- ❌ Moving marquee text — no way to pause -->
+  <div class="marquee-container" aria-live="off">
+    <span class="marquee-text">
+      🎉 SPECIAL OFFER!!! 🎉 &nbsp;&nbsp;&nbsp; CLICK HERE NOW!!! &nbsp;&nbsp;&nbsp; 🔥 FREE PRIZE WAITING!!! 🔥 &nbsp;&nbsp;&nbsp; LIMITED TIME!!! &nbsp;&nbsp;&nbsp; 💥 DON'T MISS OUT!!! 💥 &nbsp;&nbsp;&nbsp; ACT NOW ACT NOW ACT NOW &nbsp;&nbsp;&nbsp;
+    </span>
+  </div>
+
+  <!-- ❌ Navigation: 5 items with clashing random colors, no active state, hover rotates -->
+  <nav aria-label="Chaotic navigation">
+    <a href="#">HoMe</a>
+    <a href="#">ABOUT!!!!</a>
+    <a href="#">c o n t a c t</a>
+    <a href="#">PRODUCTS$$$</a>
+    <a href="#">???HELP???</a>
+  </nav>
+
+  <main>
+
+    <!-- ❌ RULES EXPLANATION PANEL — spans full width -->
+    <div class="rules-list">
+      <h2>❌ ALL AUTISM-UNFRIENDLY RULES BEING BROKEN ON THIS PAGE</h2>
+      <ol>
+        <li><span class="rule-tag">FLASHING BACKGROUND (seizure risk)</span> — The entire page background cycles through all colors every 0.4 seconds. This violates WCAG 2.3.1 and is one of the most dangerous things for photosensitive autistic individuals. <span class="note">You can see it: the whole page is constantly flashing.</span></li>
+        <li><span class="rule-tag">BLINKING/FLASHING TEXT</span> — The main heading blinks on and off at high frequency (0.3s cycle). Text should NEVER flash. <span class="note">See: the h1 title blinks in and out.</span></li>
+        <li><span class="rule-tag">CONSTANT MOTION EVERYWHERE</span> — Multiple elements shake, spin, zoom, and bounce simultaneously with no way for the user to stop them. This causes sensory overload. <span class="note">See: spinning emojis, bouncing button, shaking sidebar, zooming content blocks.</span></li>
+        <li><span class="rule-tag">AUTOPLAY POPUP (no trigger)</span> — A modal opens automatically after 1.5 seconds with no user action, using alarming language ("YOU WON!") which is unpredictable and distressing. <span class="note">See: the red popup that appeared.</span></li>
+        <li><span class="rule-tag">MOVING TEXT (marquee)</span> — A ticker moves across the screen continuously. Users with tracking difficulties or ADHD cannot read it and it pulls attention away constantly. <span class="note">See: the green ticker bar.</span></li>
+        <li><span class="rule-tag">CLASHING HIGH-CONTRAST COLORS</span> — Red on green, yellow on blue, cyan on magenta — every combination that causes visual pain. No coherent color palette exists. <span class="note">See: the nav bar colors.</span></li>
+        <li><span class="rule-tag">INCONSISTENT TYPOGRAPHY</span> — Four different fonts, sizes ranging from 6px to 72px, mixing serif/sans/display/monospace with no logic. <span class="note">See: h1 is 72px Lobster, body text is 8px serif, form is Comic Neue 22px.</span></li>
+        <li><span class="rule-tag">UNREADABLE TEXT (tiny + low contrast)</span> — Body paragraphs set at 8px with line-height 0.9 (overlapping lines), in dark grey on a flashing background. <span class="note">See: the small grey paragraph text.</span></li>
+        <li><span class="rule-tag">CHAOTIC UNPREDICTABLE LAYOUT</span> — Rotated content blocks, skewed elements, a fixed shaking sidebar that overlaps content, no grid logic. <span class="note">See: the tilted content boxes.</span></li>
+        <li><span class="rule-tag">INVISIBLE/MICROSCOPIC FOOTER TEXT</span> — Black text on near-black background at 6px size. Completely unreadable. <span class="note">See: the footer below.</span></li>
+        <li><span class="rule-tag">FORM WITH NO LABELS</span> — Input fields have no &lt;label&gt; elements, relying only on placeholder text which disappears when typing. Screen readers fail completely. <span class="note">See: the contact form.</span></li>
+        <li><span class="rule-tag">LINKS INDISTINGUISHABLE FROM TEXT</span> — Some links have no underline and inherit surrounding text color. <span class="note">See: "click here" styled as .fake-link in the sidebar area.</span></li>
+        <li><span class="rule-tag">DISTRACTING DECORATIONS</span> — Spinning emoji shapes float over the entire page. The custom cursor is an explosion emoji. <span class="note">See: floating ⚡🌀💥 shapes, your cursor is 💥.</span></li>
+        <li><span class="rule-tag">UNPREDICTABLE HOVER STATES</span> — Navigation links rotate 45° on hover — completely unexpected, breaks spatial orientation. <span class="note">Try hovering over a nav link.</span></li>
+        <li><span class="rule-tag">OVERWHELMING RAINBOW GRADIENT</span> — The emoji section has a cycling rainbow gradient background on top of the flashing page background. Double sensory assault. <span class="note">See: the colorful emoji row.</span></li>
+        <li><span class="rule-tag">INCONSISTENT CAPITALIZATION</span> — "HoMe", "ABOUT!!!!", "c o n t a c t" — capitalization is random and meaningless, violating predictability. <span class="note">See: navigation labels.</span></li>
+        <li><span class="rule-tag">ALARM LANGUAGE & URGENCY PRESSURE</span> — "ACT NOW!", "LIMITED TIME!", "DON'T MISS OUT!" — pressure-creating language causes anxiety in autistic individuals. <span class="note">See: the marquee and popup.</span></li>
+        <li><span class="rule-tag">NO QUIET/CALM ZONES</span> — Every single element on the page is animated, colored, or chaotic. There is no visual rest point anywhere. <span class="note">See: literally every element.</span></li>
+      </ol>
+    </div>
+
+    <!-- ❌ Rotated, dotted/dashed border content block -->
+    <div class="content-block">
+      <div class="block-title">ABUT US!!!</div>
+      <p class="body-text">
+        We are the world's greatest company ever created. Our products are amazing and you should buy all of them immediately. Don't wait. Act now. Limited time only. We have been in business since forever and we are the best. Click here to learn more about our amazing incredible unbelievable products and services which are definitely real and definitely exist. Our team of experts are standing by 24/7 to help you make the best decision of your life. Contact us now by filling out the form below and pressing the button. You will not regret this decision. Terms and conditions apply. See website for details.
+      </p>
+      <p class="important">CONTACT US NOW!!! ⚠️⚠️⚠️</p>
+      <a href="#" class="fake-link">Learn more (this looks like normal text)</a>
+    </div>
+
+    <!-- ❌ Zooming + skewed side block -->
+    <div class="content-block" style="background:#1a0020;">
+      <div class="spinner-emoji">🌀</div>
+      <div class="spinner-emoji">⭐</div>
+      <div class="spinner-emoji">💫</div>
+      <div class="spinner-emoji">🔥</div>
+      <div class="block-title" style="font-size:24px;">ADS!!!</div>
+      <p style="color:#ff0;font-size:30px;animation:textBlink 0.3s infinite;font-family:'Lobster',cursive;">BUY<br>NOW<br>$$$<br>!!!!</p>
+    </div>
+
+    <!-- ❌ Bouncing content block with a form with no labels -->
+    <div class="content-block" style="background:#001a00;">
+      <div class="block-title" style="color:#f0f;font-size:30px;">KONTACT FORM</div>
+
+      <!-- ❌ Form: no labels, broken association, random colors -->
+      <div class="chaos-form">
+        <input type="text" placeholder="ur name lol" />
+        <input type="text" placeholder="emai address here" />
+        <input type="text" placeholder="PHONE OR WHATEVER" />
+        <input type="text" placeholder="message (be fast)" />
+        <!-- ❌ No submit type clarity, no error handling, bouncing button -->
+        <button onclick="alert('FORM SUBMITTED!!! WE WILL CALL YOU!!! 📞📞📞')">
+          SEND IT NOW!!!🚀
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ❌ Spinning emojis row on a rainbow flashing background -->
+  <div class="deco-section">
+    <span class="emoji-decoration">🎪</span>
+    <span class="emoji-decoration">💥</span>
+    <span class="emoji-decoration">🌈</span>
+    <span class="emoji-decoration">⚡</span>
+    <span class="emoji-decoration">🎉</span>
+    <span class="emoji-decoration">🔥</span>
+    <span class="emoji-decoration">💫</span>
+    <span class="emoji-decoration">🎆</span>
+    <span class="emoji-decoration">🌀</span>
+    <span class="emoji-decoration">⭐</span>
+    <span class="emoji-decoration">🎇</span>
+    <span class="emoji-decoration">💥</span>
+  </div>
+
+  <!-- ❌ Footer: invisible text, microscopic -->
+  <footer>
+    <p>Copyright 2024 Our Company. All rights reserved. Terms and conditions apply. By using this website you agree to all our terms and conditions which are listed somewhere else on a different page that is very hard to find. This website uses cookies and tracking and also your data is shared with our partners for marketing purposes. Click here to opt out (this link doesn't work). Privacy policy is also somewhere. Contact us at someemail@whatever.com if you have questions. The information on this page is for entertainment purposes only and should not be considered advice of any kind. We are not responsible for anything. Have a great day!</p>
+  </footer>
+
+</div>
+
+<script>
+  // ❌ RULE BROKEN: Automatic popup with no user trigger
+  setTimeout(function() {
+    document.getElementById('popup').style.display = 'block';
+  }, 1500);
+
+  // ❌ RULE BROKEN: Autoplay sound via AudioContext
+  window.addEventListener('load', function() {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      function playBeep() {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.value = 880 + Math.random() * 440;
+        gain.gain.setValueAtTime(0.1, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.3);
+      }
+      // ❌ Random beeps every 2-4 seconds — startling, unpredictable
+      setInterval(playBeep, 2000 + Math.random() * 2000);
+    } catch(e) {}
+  });
+
+  // ❌ RULE BROKEN: Page randomly changes title tab to be alarming
+  const titles = [
+    "⚠️ YOU HAVE A VIRUS!!!",
+    "💰 YOU WON $10,000!!!",
+    "🚨 URGENT: READ NOW!!!",
+    "WELCOME!!! CLICK HERE!!!",
+    "⚡ ACT NOW - TIME RUNNING OUT!!!",
+  ];
+  let titleIdx = 0;
+  setInterval(function() {
+    titleIdx = (titleIdx + 1) % titles.length;
+    document.title = titles[titleIdx];
+  }, 1500);
+  // ❌ The page title flickers between alarming messages every 1.5s
+</script>
+
+</body>
+</html>

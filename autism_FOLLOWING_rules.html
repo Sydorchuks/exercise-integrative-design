@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meadow Learning — A Sensory-Friendly Place to Learn</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+<style>
+  /*
+  ✅ ALL AUTISM-FRIENDLY RULES FOLLOWED — See annotations below
+  ✅ RULE: Respect prefers-reduced-motion — all animations disabled if user prefers
+  */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  /*
+  ✅ RULE: Calm, consistent, muted color palette
+  No flashing, no high-contrast clashing, no rainbow gradients
+  Using: soft sage green, warm off-white, dark slate (not pure black)
+  */
+  :root {
+    --bg:          #f7f5f0;       /* warm off-white — not harsh white */
+    --surface:     #ffffff;
+    --surface-alt: #eef3ee;       /* very light sage */
+    --primary:     #3d6b52;       /* calm forest green */
+    --primary-lt:  #6a9c7f;
+    --accent:      #8b6914;       /* warm muted amber — only used sparingly */
+    --text:        #2a2a2a;       /* dark, not pure black — reduces harshness */
+    --text-muted:  #5c5c5c;
+    --border:      #d4d0c8;
+    --focus:       #3d6b52;
+    --error:       #c0392b;
+    --success:     #2e7d47;
+    --radius:      8px;
+    --radius-lg:   16px;
+    --shadow:      0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  /*
+  ✅ RULE: Consistent base font — readable, clear, non-decorative for body
+  ✅ RULE: Adequate font size (min 16px body text)
+  ✅ RULE: Line height ≥ 1.5 for comfortable reading
+  ✅ RULE: No justified text — use left-align to prevent word-spacing rivers
+  */
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-size: 18px; /* ✅ Base size larger than minimum 16px */
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.7;        /* ✅ Generous line height */
+    text-align: left;        /* ✅ Never justified */
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    cursor: default;         /* ✅ Standard cursor — no custom cursors */
+  }
+
+  /*
+  ✅ RULE: Skip to main content link — keyboard and screen reader accessibility
+  */
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 16px;
+    background: var(--primary);
+    color: white;
+    padding: 8px 16px;
+    border-radius: var(--radius);
+    font-weight: 600;
+    z-index: 9999;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  .skip-link:focus {
+    top: 16px;
+  }
+
+  /*
+  ✅ RULE: Clear, visible focus indicators (not just :focus-visible — also :focus)
+  ✅ RULE: Consistent focus style across ALL interactive elements
+  */
+  :focus {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+  :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* ───────────── LAYOUT ───────────── */
+  /*
+  ✅ RULE: Predictable, consistent layout — same structure on every page
+  ✅ RULE: Max content width limits line length (45–75 chars for readability)
+  */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ───────────── HEADER / NAV ───────────── */
+  /*
+  ✅ RULE: Navigation is consistent and predictable
+  ✅ RULE: Current page clearly indicated
+  ✅ RULE: All nav items have clear, plain-English labels — no jargon
+  ✅ RULE: No hover effects that move/rotate/transform elements unexpectedly
+  */
+  header {
+    background: var(--surface);
+    border-bottom: 2px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    /* ✅ No shadows that pulse, no animation */
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    max-width: 900px;
+    margin: 0 auto;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    color: var(--primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 400;
+  }
+  .logo-icon {
+    font-size: 1.6rem;
+    /* ✅ Static emoji — no spinning */
+  }
+
+  nav {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  /*
+  ✅ RULE: Links are clearly identifiable (underline or obvious distinction)
+  ✅ RULE: Active/current page is visually marked
+  ✅ RULE: Hover only changes color/underline — no spatial transformation
+  */
+  nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s;
+    /* ✅ Transition is subtle (color/bg only) and short */
+    border: 2px solid transparent;
+  }
+  nav a:hover {
+    background: var(--surface-alt);
+    color: var(--primary);
+    /* ✅ Only color changes — no rotation, no scaling, no surprise */
+  }
+  nav a[aria-current="page"] {
+    background: var(--surface-alt);
+    color: var(--primary);
+    border-color: var(--primary-lt);
+    font-weight: 600;
+  }
+
+  /* ───────────── HERO ───────────── */
+  /*
+  ✅ RULE: Calm, static hero — no autoplay video, no moving background
+  ✅ RULE: Clear heading hierarchy (h1 used once, for main title)
+  ✅ RULE: Adequate contrast ratio (text on background)
+  */
+  .hero {
+    background: var(--surface-alt);
+    border-bottom: 1px solid var(--border);
+    padding: 64px 24px;
+    text-align: left;
+  }
+
+  .hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /*
+  ✅ RULE: Heading uses display font only for h1 — body text stays readable
+  ✅ RULE: Font size is large but not overwhelmingly so
+  ✅ RULE: Consistent heading hierarchy throughout the page
+  */
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.8rem;
+    color: var(--primary);
+    line-height: 1.2;
+    margin-bottom: 16px;
+    font-weight: 400;
+    /* ✅ No text-shadow, no animation, no blinking */
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    color: var(--text);
+    margin-bottom: 12px;
+    font-weight: 400;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin-bottom: 32px;
+    line-height: 1.7;
+  }
+
+  /*
+  ✅ RULE: CTA button is clearly labeled with what it does
+  ✅ RULE: Large enough click target (min 44×44px)
+  ✅ RULE: Color alone is not the only indicator — also has text + border
+  */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    border: 2px solid transparent;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+    min-height: 48px; /* ✅ Adequate touch/click target */
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+  }
+  .btn-primary:hover {
+    background: var(--primary-lt);
+    border-color: var(--primary-lt);
+    /* ✅ Subtle color shift only — no movement */
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+  .btn-secondary:hover {
+    background: var(--surface-alt);
+  }
+
+  /* ───────────── MAIN CONTENT ───────────── */
+  main {
+    padding: 64px 0;
+  }
+
+  .section {
+    margin-bottom: 64px;
+  }
+
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 8px;
+    /* ✅ All-caps only for short labels, not body text */
+  }
+
+  /*
+  ✅ RULE: Cards have clear, consistent structure
+  ✅ RULE: Adequate white space — not cluttered
+  ✅ RULE: No cluttered designs or unclear navigation
+  */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    box-shadow: var(--shadow);
+    /* ✅ No rotation, no animation, no skew */
+  }
+
+  .card-icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+    display: block;
+    /* ✅ Icons are static — no spinning */
+  }
+
+  .card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-top: 8px;
+    line-height: 1.6;
+  }
+
+  /* ───────────── RULES PANEL ───────────── */
+  .rules-panel {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    margin-top: 32px;
+  }
+
+  .rules-panel h2 {
+    color: var(--primary);
+    margin-bottom: 24px;
+    font-size: 1.6rem;
+  }
+
+  .rule-item {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 12px 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+
+  .rule-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .rule-check {
+    color: var(--success);
+    font-size: 1.2rem;
+    line-height: 1.4;
+    font-weight: bold;
+  }
+
+  .rule-title {
+    font-weight: 600;
+    color: var(--text);
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  .rule-desc {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .rule-note {
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-style: italic;
+    margin-top: 4px;
+  }
+
+  /* ───────────── FORM ───────────── */
+  /*
+  ✅ RULE: Every input has a visible, associated <label>
+  ✅ RULE: Error messages are clear and specific
+  ✅ RULE: Form fields are large enough to interact with
+  ✅ RULE: Required fields are marked clearly (not just by color)
+  ✅ RULE: Placeholder text supplements labels — does NOT replace them
+  */
+  .form-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    margin-top: 32px;
+  }
+
+  .form-group {
+    margin-bottom: 24px;
+  }
+
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .required-mark {
+    color: var(--error);
+    margin-left: 4px;
+    font-weight: 600;
+  }
+
+  .field-hint {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    line-height: 1.4;
+    /* ✅ Hint text visible before interaction, not just on error */
+  }
+
+  input[type="text"],
+  input[type="email"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--text);
+    background: var(--bg);
+    transition: border-color 0.15s;
+    /* ✅ Consistent styling across all inputs */
+  }
+
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  textarea:focus,
+  select:focus {
+    border-color: var(--primary);
+    background: var(--surface);
+    outline: 3px solid rgba(61, 107, 82, 0.3);
+    /* ✅ Clear focus state on inputs */
+  }
+
+  textarea {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.6;
+  }
+
+  .error-message {
+    color: var(--error);
+    font-size: 0.85rem;
+    margin-top: 6px;
+    display: none;
+    font-weight: 500;
+  }
+
+  .form-success {
+    display: none;
+    background: #e8f5ed;
+    border: 2px solid var(--success);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    color: var(--success);
+    font-weight: 500;
+    margin-top: 16px;
+  }
+
+  /* ───────────── NOTICE BAR ───────────── */
+  /*
+  ✅ RULE: Any status or announcement uses ARIA live regions — not visual surprises
+  ✅ RULE: No auto-advancing carousels or popups
+  */
+  .notice-bar {
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 32px;
+    /* ✅ Static notice — NOT a popup, NOT auto-dismissed, NOT flashing */
+  }
+
+  .notice-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .notice-text {
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  /* ───────────── DIVIDER ───────────── */
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+
+  /* ───────────── FOOTER ───────────── */
+  /*
+  ✅ RULE: Footer text is legible — adequate font size and contrast
+  ✅ RULE: Links in footer are distinguishable from body text
+  */
+  footer {
+    background: var(--surface);
+    border-top: 2px solid var(--border);
+    padding: 40px 24px;
+    /* ✅ NOT black on black, NOT 6px text */
+  }
+
+  .footer-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+  }
+
+  .footer-brand p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 8px;
+    max-width: 300px;
+    line-height: 1.6;
+  }
+
+  .footer-col h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .footer-col a {
+    display: block;
+    color: var(--text);
+    text-decoration: underline; /* ✅ Links are clearly underlined in footer */
+    text-underline-offset: 3px;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    padding: 2px 0;
+  }
+
+  .footer-col a:hover {
+    color: var(--primary);
+  }
+
+  .footer-bottom {
+    max-width: 900px;
+    margin: 32px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* ───────────── RESPONSIVE ───────────── */
+  @media (max-width: 640px) {
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; }
+    .hero { padding: 40px 20px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+    .form-section { padding: 24px; }
+    .rules-panel { padding: 24px; }
+  }
+
+</style>
+</head>
+
+<body>
+
+  <!-- ✅ RULE: Skip navigation link for keyboard users -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header role="banner">
+    <div class="header-inner">
+      <a href="#" class="logo" aria-label="Meadow Learning — Home">
+        <span class="logo-icon" aria-hidden="true">🌿</span>
+        Meadow Learning
+      </a>
+
+      <!-- ✅ RULE: Navigation labeled, current page marked with aria-current -->
+      <nav aria-label="Main navigation">
+        <a href="#" aria-current="page">Home</a>
+        <a href="#">Courses</a>
+        <a href="#">About Us</a>
+        <a href="#">Resources</a>
+        <a href="#contact-section">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ✅ RULE: Calm, static hero section — no video, no movement, no autoplay -->
+  <div class="hero" role="region" aria-label="Introduction">
+    <div class="hero-content">
+      <p class="section-label">Sensory-Friendly Learning</p>
+
+      <!-- ✅ RULE: One clear h1, plain language, no alarm/urgency language -->
+      <h1>A calm place to learn at your own pace</h1>
+
+      <p class="hero-subtitle">
+        Meadow Learning offers online courses designed with focus, clarity, and comfort in mind.
+        No flashy distractions — just clear content that works for every kind of thinker.
+      </p>
+
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <!-- ✅ RULE: Buttons clearly say what they do — no "Click Here" -->
+        <a href="#courses" class="btn btn-primary">Browse our courses</a>
+        <a href="#contact-section" class="btn btn-secondary">Get in touch</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main-content">
+    <div class="container">
+
+      <!-- ✅ RULE: Static notice bar — NOT a popup, NOT blinking, NOT auto-dismissed -->
+      <div class="notice-bar" role="note" style="margin-top:48px;">
+        <span class="notice-icon" aria-hidden="true">ℹ️</span>
+        <p class="notice-text">
+          <strong>Accessibility note:</strong> This site works well with screen readers and keyboard navigation.
+          If you need a different format, <a href="#contact-section" style="color:var(--primary);">contact us</a> and we will help.
+        </p>
+      </div>
+
+      <!-- ✅ RULE: Consistent heading hierarchy (h2 for sections) -->
+      <section class="section" id="courses" aria-labelledby="courses-heading">
+        <p class="section-label">What we offer</p>
+        <h2 id="courses-heading">Courses designed for all learners</h2>
+        <p style="color:var(--text-muted);max-width:600px;margin-bottom:8px;">
+          Each course is structured with clear steps, consistent layouts, and no surprise changes.
+          You always know where you are and what comes next.
+        </p>
+
+        <!-- ✅ RULE: Card grid — consistent, predictable layout -->
+        <div class="card-grid">
+          <div class="card">
+            <span class="card-icon" aria-hidden="true">📖</span>
+            <h3>Reading &amp; Literacy</h3>
+            <p>Step-by-step lessons with clear visuals and optional audio support. No timed activities.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon" aria-hidden="true">🔢</span>
+            <h3>Maths Foundations</h3>
+            <p>Work through concepts at your own pace. Each topic has a clear start and end point.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon" aria-hidden="true">🎨</span>
+            <h3>Creative Expression</h3>
+            <p>Drawing, writing, and art activities in a low-pressure environment with no grading.</p>
+          </div>
+          <div class="card">
+            <span class="card-icon" aria-hidden="true">🌍</span>
+            <h3>World &amp; Nature</h3>
+            <p>Explore topics you are curious about. Content focuses on depth over speed.</p>
+          </div>
+        </div>
+      </section>
+
+      <hr />
+
+      <!-- ✅ RULES PANEL — Full explanation of what's followed and how -->
+      <section class="section" aria-labelledby="rules-heading">
+        <p class="section-label">Design notes</p>
+        <h2 id="rules-heading">✅ Every autism-friendly rule we follow — and how to see it</h2>
+
+        <div class="rules-panel">
+          <div class="rule-item">
+            <span class="rule-check" aria-hidden="true">✅</span>
+            <div>
+              <p class="rule-title">No flashing, blinking, or rapidly changing visuals</p>
+              <p class="rule-desc">The background and all elements are completely static. No CSS animations change color at speed. No GIFs, no autoplay video. This prevents seizures and sensory overload.</p>
+              <p class="rule-note">How to see it: Every element on this page is still. Compare to the breaking-rules page where the entire background flashes every 0.4 seconds.</p>
+            </div>
+          </div>
+          <div class="rule-item">
+            <span class="rule-check" aria-hidden="true">✅</span>
+            <div>
+              <p class="rule-title">Respects prefers-reduced-motion</p>
+              <p class="rule-desc">The CSS @media (prefers-reduced-motion: reduce) rule disables ALL transitions and animations if the user has set this in their operating system. This is the most important accessibility setting for motion-sensitive individuals.</p>
+              <p class="rule-note">How to see it: Enable "Reduce Motion" in your OS accessibility settings, then inspect the CSS — all transitions become instant.</p>
+            </div>
+          </div>
+          <div class="rule-item">
+            <span class="rule-check" aria-hidden="true">✅</span>
+            <div>
+              <p class="rule-title">Calm, consistent, muted color palette</p>
+              <p class="rule-desc">The palette uses soft sage green (--primary: #3d6b52) and warm off-white (--bg: #f7f5f0). No red/green clashes, no rainbow gradients, no neon colors. Accent color (amber) is used only sparingly for labels. All text meets WCAG AA contrast ratio (4.5:1 minimum).</p>
+              <p class="rule-note">How to see it: The entire page uses only 2-3 hues. There are no jarring color transitions anywhere.</p>
+            </div>
+          </div>
+          <div class="rule-item">
+            <span class="rule-check" aria-hidden="true">✅</span>
+            <div>
+              <p class="rule-title">Consistent typography — readable fonts, adequate sizing</p>
+              <p class="rule-desc">Body text uses DM Sans at 18px (above the 16px minimum) with line-height 1.7. The display font (DM Serif Display) is used ONLY for headings, never for body text. Font sizes follow a clear, logical hierarchy: h1=2.8rem, h2=1.8rem, h3=1.1rem, body=1rem. No text smaller than 0.85rem anywhere. No Comic Sans or display fonts for reading text.</p>
+              <p class="rule-note">How to see it: Every paragraph is the same size and font. Headings decrease logically in size. No text is unreadably small.</p>
+            </div>
+          </div>
+          <div class="rule-item">
+            <span class="rule-check" aria-hidden="true">✅</span>
+            <div>
+              <p class="rule-title">Text is never justified — always left-aligned</p>
+              <p class="rule-desc">Justified text creates uneven word spacing ("rivers" of white space) that makes reading harder for dyslexic and autistic readers. Every paragraph on this page uses text-align: left.</p>
+              <p class="rule-note">How to see it: All paragraphs align to the left edge. There is no stretched word spacing.</p>
+            </div>
+          </div>
+          <div class="rule-item">
+            <span class="rule-check" aria-hidden="true">✅</span>
+            <div>
+              <p class="rule-title">Predictable, consistent layout — same structure throughout</p>
+              <p class="rule-desc">Every section uses the same grid, the same card structure, the same heading pattern. Nothing is rotated, skewed, or placed unexpectedly. The navigation is in the same place on every page.</p>
+              <p class="rule-note">How to see it: The page flows top-to-bottom in a clear column. All cards are the same width and structure. Nothing is tilted or displaced.</p>
+            </div>
+          </div>
+          <div class="rule-item">
+            <span class="rule-check" aria-hidden="true">✅</span>
+            <div>
+              <p class="rule-title">No moving text (no marquees, no tickers)</p>
+              <p class="rule-desc">Moving text is impossible to read for many users with tracking difficulties and constantly pulls attention. There is no marquee, no ticker, no scrolling text anywhere on this page.</p>
+              <p class="rule-note">How to see it: All text is stationary. Nothing scrolls across the screen.</p>
+            </div>
+          </div>
+          <div class="rule-item">
+            <span class="rule-check" aria-hidden="true">✅</span>
+            <div>
+              <p class="rule-title">No automatic popups or unexpected interruptions</p>
+              <p class="rule-desc">Nothing opens without user action. There are no modals that auto-appear, no cookie consent banners that slide in, no chat widgets that pop up, no alerts. Users are never surprised by something appearing uninvited.</p>
+              <p class="rule-note">How to see it: Load the page — nothing pops up. Compare to the breaking-rules page where a red popup appears after 1.5 seconds.</p>
+            </div>
+          </div>
+          <div class="rule-item">
+            <span class="rule-check" aria-hidden="true">✅</span>
+            <div>
+              <p class="rule-title">No autoplay audio or video</p>
+              <p class="rule-desc">Unexpected sound is one of the most distressing sensory triggers. This page plays no audio whatsoever without user action. No background music, no sound effects, no random beeps.</p>
+              <p class="rule-note">How to see it: Load the page with your audio on — silence. Compare to the breaking-rules page which plays random beeps every 2-4 seconds.</p>
+            </div>
+          </div>
+          <div class="rule-item">
+            <span class="rule-check" aria-hidden="true">✅</span>
+            <div>
+              <p class="rule-title">Links are clearly identifiable and distinguishable</p>
+              <p class="rule-desc">All links in body content and footer are underlined. Navigation links have clear hover states that change color (not transform). Links never look like plain text. No "click here" — links describe their destination.</p>
+              <p class="rule-note">How to see it: See the footer — all links have underlines. Hover over a nav link — only the background color changes, no rotation.</p>
+            </div>
+          </div>
+          <div class="rule-item">
+            <span class="rule-check" aria-hidden="true">✅</span>
+            <div>
+              <p class="rule-title">Forms have visible labels, hints, and clear error feedback</p>
+              <p class="rule-desc">Every input has a visible &lt;label&gt; element associated with it. Hint text explains what format is expected. Required fields are marked with both an asterisk AND the word "(required)". Error messages are specific and appear next to the relevant field.</p>
+              <p class="rule-note">How to see it: Look at the contact form below — every field has a label above it, hint text, and required marking. Try submitting without filling it in.</p>
+            </div>
+          </div>
+          <div class="rule-item">
+            <span class="rule-check" aria-hidden="true">✅</span>
+            <div>
+              <p class="rule-title">Adequate touch/click targets (min 48×48px)</p>
+              <p class="rule-desc">All buttons, links, and interactive elements have a minimum height of 48px and adequate padding. This ensures users with motor difficulties can reliably interact with them.</p>
+              <p class="rule-note">How to see it: Inspect any button — min-height: 48px is set. Compare to the breaking-rules page where the close button is 10px and hard to click.</p>
+            </div>
+          </div>
+          <div class="rule-item">
+            <span class="rule-check" aria-hidden="true">✅</span>
+            <div>
+              <p class="rule-title">No distracting decorations or overlaid animations</p>
+              <p class="rule-desc">No spinning emojis, no floating shapes, no background particles, no custom cursors. Decorative elements (the 🌿 logo icon, card icons) are static and marked aria-hidden so screen readers ignore them.</p>
+              <p class="rule-note">How to see it: The cursor is the default arrow. No shapes move anywhere on the page. All icons are still.</p>
+            </div>
+          </div>
+          <div class="rule-item">
+            <span class="rule-check" aria-hidden="true">✅</span>
+            <div>
+              <p class="rule-title">Clear focus indicators for keyboard navigation</p>
+              <p class="rule-desc">Every interactive element shows a clear 3px green outline when focused via keyboard (Tab key). The focus style is the same across all elements for consistency and predictability.</p>
+              <p class="rule-note">How to see it: Press Tab to navigate — a green outline will clearly show which element is focused.</p>
+            </div>
+          </div>
+          <div class="rule-item">
+            <span class="rule-check" aria-hidden="true">✅</span>
+            <div>
+              <p class="rule-title">Skip navigation link for keyboard users</p>
+              <p class="rule-desc">A "Skip to main content" link is the first focusable element. It becomes visible when focused via keyboard, allowing users to bypass the navigation and go directly to content.</p>
+              <p class="rule-note">How to see it: Press Tab immediately after loading — a green "Skip to main content" button appears at the top.</p>
+            </div>
+          </div>
+          <div class="rule-item">
+            <span class="rule-check" aria-hidden="true">✅</span>
+            <div>
+              <p class="rule-title">Predictable, plain-English navigation labels</p>
+              <p class="rule-desc">Navigation uses clear, plain words: "Home", "Courses", "About Us", "Resources", "Contact". No jargon, no puns, no ambiguous icons. The current page is marked with aria-current="page".</p>
+              <p class="rule-note">How to see it: Look at the header navigation — all labels are simple English words. "Home" is highlighted as the current page.</p>
+            </div>
+          </div>
+          <div class="rule-item">
+            <span class="rule-check" aria-hidden="true">✅</span>
+            <div>
+              <p class="rule-title">Calm, plain language — no urgency, no alarm, no pressure</p>
+              <p class="rule-desc">No "Act Now!", "Limited Time!", "Don't Miss Out!" language anywhere. The tone is calm, direct, and informative. Headings state facts, not emotional commands.</p>
+              <p class="rule-note">How to see it: Read any heading or CTA. None use urgency language. Compare to the breaking-rules marquee: "ACT NOW ACT NOW ACT NOW".</p>
+            </div>
+          </div>
+          <div class="rule-item">
+            <span class="rule-check" aria-hidden="true">✅</span>
+            <div>
+              <p class="rule-title">Legible footer — never invisible text</p>
+              <p class="rule-desc">Footer uses #5c5c5c (dark grey) on #ffffff (white) — a contrast ratio of 7:1. Font size is 0.9rem (16.2px). No text is hidden by matching its color to the background.</p>
+              <p class="rule-note">How to see it: The footer is fully readable. Compare to the breaking-rules page where footer text is 6px and black on near-black.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <hr />
+
+      <!-- ✅ RULE: Contact form with full accessibility -->
+      <section class="section" id="contact-section" aria-labelledby="contact-heading">
+        <p class="section-label">Get in touch</p>
+        <h2 id="contact-heading">Send us a message</h2>
+        <p style="color:var(--text-muted);max-width:600px;margin-bottom:8px;">
+          We usually reply within 2 working days. If you have an urgent question, please call us on 0800 123 456.
+        </p>
+
+        <div class="form-section">
+          <form id="contact-form" novalidate>
+
+            <!-- ✅ RULE: Labeled input, required marked in text + symbol -->
+            <div class="form-group">
+              <label for="name">
+                Your name <span class="required-mark" aria-label="required">*</span>
+              </label>
+              <p class="field-hint" id="name-hint">Enter your first name and last name.</p>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                autocomplete="name"
+                aria-required="true"
+                aria-describedby="name-hint name-error"
+                placeholder="e.g. Alex Smith"
+              />
+              <p class="error-message" id="name-error" role="alert">Please enter your name.</p>
+            </div>
+
+            <div class="form-group">
+              <label for="email">
+                Email address <span class="required-mark" aria-label="required">*</span>
+              </label>
+              <p class="field-hint" id="email-hint">We will use this to reply to you. Example: you@example.com</p>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                autocomplete="email"
+                aria-required="true"
+                aria-describedby="email-hint email-error"
+                placeholder="you@example.com"
+              />
+              <p class="error-message" id="email-error" role="alert">Please enter a valid email address (e.g. you@example.com).</p>
+            </div>
+
+            <div class="form-group">
+              <label for="topic">What is your message about?</label>
+              <p class="field-hint" id="topic-hint">Choose the option that best matches your question.</p>
+              <select id="topic" name="topic" aria-describedby="topic-hint">
+                <option value="">— Please choose —</option>
+                <option value="courses">A specific course</option>
+                <option value="accessibility">Accessibility or support needs</option>
+                <option value="technical">Technical problem</option>
+                <option value="other">Something else</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">
+                Your message <span class="required-mark" aria-label="required">*</span>
+              </label>
+              <p class="field-hint" id="message-hint">Write as much or as little as you like. There is no word limit or time pressure.</p>
+              <textarea
+                id="message"
+                name="message"
+                aria-required="true"
+                aria-describedby="message-hint message-error"
+                placeholder="Type your message here..."
+              ></textarea>
+              <p class="error-message" id="message-error" role="alert">Please write a message before sending.</p>
+            </div>
+
+            <!-- ✅ RULE: Submit button clearly says what it does, not just "Submit" -->
+            <button type="submit" class="btn btn-primary">
+              Send my message
+            </button>
+
+            <!-- ✅ RULE: Success message uses ARIA live region — screen readers announce it -->
+            <div class="form-success" id="form-success" role="status" aria-live="polite">
+              ✓ Your message has been sent. We will reply to you at the email address you provided within 2 working days.
+            </div>
+
+          </form>
+        </div>
+      </section>
+
+    </div><!-- /.container -->
+  </main>
+
+  <!-- ✅ RULE: Legible footer — adequate font size, all text visible, links underlined -->
+  <footer role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <span aria-hidden="true">🌿</span> Meadow Learning
+        </a>
+        <p>A calm, sensory-friendly online learning environment for all ages and learning styles.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Learning</h4>
+        <a href="#">All courses</a>
+        <a href="#">How it works</a>
+        <a href="#">For families</a>
+        <a href="#">For schools</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="#">Accessibility statement</a>
+        <a href="#">Privacy policy</a>
+        <a href="#contact-section">Contact us</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Meadow Learning. All rights reserved.</span>
+      <span>Designed to meet WCAG 2.1 AA accessibility standards.</span>
+    </div>
+  </footer>
+
+  <script>
+    // ✅ RULE: Form validation — specific, helpful error messages, no surprise alerts
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      let valid = true;
+
+      const name = document.getElementById('name');
+      const nameError = document.getElementById('name-error');
+      const email = document.getElementById('email');
+      const emailError = document.getElementById('email-error');
+      const message = document.getElementById('message');
+      const messageError = document.getElementById('message-error');
+
+      // Reset
+      [nameError, emailError, messageError].forEach(el => el.style.display = 'none');
+      [name, email, message].forEach(el => el.setAttribute('aria-invalid', 'false'));
+
+      if (!name.value.trim()) {
+        nameError.style.display = 'block';
+        name.setAttribute('aria-invalid', 'true');
+        name.focus();
+        valid = false;
+      }
+
+      if (!email.value.trim() || !email.value.includes('@')) {
+        emailError.style.display = 'block';
+        email.setAttribute('aria-invalid', 'true');
+        if (valid) { email.focus(); valid = false; }
+      }
+
+      if (!message.value.trim()) {
+        messageError.style.display = 'block';
+        message.setAttribute('aria-invalid', 'true');
+        if (valid) { message.focus(); valid = false; }
+      }
+
+      if (valid) {
+        // ✅ RULE: Success shown inline — no popup, no alert(), no redirect surprise
+        document.getElementById('form-success').style.display = 'block';
+        document.getElementById('contact-form').reset();
+      }
+    });
+  </script>
+
+</body>
+</html>
